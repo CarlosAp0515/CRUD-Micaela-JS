@@ -1,0 +1,302 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap");
+:root {
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-surface-light: #242424;
+
+  --color-gold: #d4af37;
+  --color-gold-hover: #f1c75b;
+
+  --color-text: #f5f5f5;
+  --color-text-muted: #b0b0b0;
+
+  --color-danger: #c0392b;
+  --color-danger-hover: #e74c3c;
+
+  --color-shadow: rgba(0, 0, 0, 0.4);
+
+  --border-radius: 14px;
+
+  --transition: all 0.3s ease;
+}
+
+/* =========================
+   RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   BODY
+========================= */
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  min-height: 100vh;
+
+  padding: 30px;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+
+.container {
+  width: 100%;
+  max-width: 700px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+/* =========================
+   TITULOS
+========================= */
+
+h1 {
+  font-size: 3rem;
+
+  text-shadow:
+    0 0 10px rgba(212, 175, 55, 0.4),
+    0 0 20px rgba(212, 175, 55, 0.2);
+}
+h1,
+h2 {
+  color: var(--color-gold);
+
+  text-align: center;
+
+  letter-spacing: 2px;
+
+  font-family: "Cinzel", serif;
+
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+form {
+  background-color: var(--color-surface);
+
+  padding: 25px;
+
+  border-radius: var(--border-radius);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+
+  box-shadow: 0 10px 25px var(--color-shadow);
+}
+
+/* =========================
+   INPUTS Y SELECT
+========================= */
+
+input,
+select {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 2px solid transparent;
+
+  border-radius: 10px;
+
+  background-color: var(--color-surface-light);
+
+  color: var(--color-text);
+
+  font-size: 1rem;
+
+  outline: none;
+
+  transition: var(--transition);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--color-gold);
+
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+button {
+  border: none;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  background-color: var(--color-gold);
+
+  color: #000;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: var(--transition);
+}
+
+button:hover {
+  background-color: var(--color-gold-hover);
+
+  transform: translateY(-2px);
+}
+
+/* =========================
+   GRID DE CARDS
+========================= */
+
+#usersContainer {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  gap: 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+  background-color: var(--color-surface);
+
+  border-radius: var(--border-radius);
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  box-shadow: 0 10px 20px var(--color-shadow);
+
+  transition: var(--transition);
+
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+
+  border-color: var(--color-gold);
+
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+}
+
+/* =========================
+   TEXTO CARD
+========================= */
+
+.card h2 {
+  color: var(--color-gold);
+
+  text-align: left;
+
+  font-size: 1.5rem;
+}
+
+.card p {
+  color: var(--color-text-muted);
+
+  line-height: 1.5;
+}
+
+/* =========================
+   BOTONES DE ACCIONES
+========================= */
+
+.actions {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+/* =========================
+   BOTON EDITAR
+========================= */
+
+.edit {
+  flex: 1;
+}
+
+/* =========================
+   BOTON ELIMINAR
+========================= */
+
+.delete {
+  flex: 1;
+
+  background-color: var(--color-danger);
+
+  color: white;
+}
+
+.delete:hover {
+  background-color: var(--color-danger-hover);
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+#logout {
+  max-width: 250px;
+
+  margin: 0 auto;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}

@@ -53,7 +53,7 @@ function renderUsers() {
     const editBtn = card.querySelector(".edit");
 
     deleteBtn.addEventListener("click", () => {
-      const userIndex = deleteBtn.dataset.index;
+      const userIndex = Number(deleteBtn.dataset.index);
 
       users.splice(userIndex, 1);
 
@@ -63,19 +63,19 @@ function renderUsers() {
     });
 
     editBtn.addEventListener("click", () => {
-      const userIndex = editBtn.dataset.index;
+      const userIndex = Number(editBtn.dataset.index);
 
       const selectedUser = users[userIndex];
 
       editIndex = userIndex;
 
-      renderAuthPage();
+      renderRegisterPage();
 
       document.getElementById("fullname").value = selectedUser.fullname;
 
       document.getElementById("email").value = selectedUser.email;
 
-      document.getElementById("birthyear").value = selectedUser.birthyear;
+      document.getElementById("birthdate").value = selectedUser.birthdate;
 
       document.getElementById("identification").value =
         selectedUser.identification;
@@ -116,70 +116,22 @@ function renderDashboard(user) {
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("loggedUser");
 
-    renderAuthPage();
+    renderLoginPage();
   });
 }
 
-function renderAuthPage() {
+function renderLoginPage() {
   document.querySelector("#app").innerHTML = `
-  
+
     <main class="container">
 
-      <h1>CRUD CLAN 4 (MICAELA)</h1>
-
-      <form id="userForm">
-
-        <input 
-          type="text" 
-          id="fullname" 
-          placeholder="Nombre completo"
-        />
-
-        <input 
-          type="email" 
-          id="email" 
-          placeholder="Correo electrónico"
-        />
-
-        <input 
-          type="number" 
-          id="birthyear" 
-          placeholder="Año de nacimiento"
-        />
-
-        <input 
-          type="text" 
-          id="identification" 
-          placeholder="Número de identificación"
-        />
-
-        <input 
-          type="text" 
-          id="city" 
-          placeholder="Ciudad"
-        />
-
-        <input 
-          type="password" 
-          id="password"
-          placeholder="Contraseña"
-        />
-
-        <select id="status">
-          <option value="">Seleccione estado</option>
-          <option value="Activo">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-        </select>
-
-        <button type="submit">
-          Guardar usuario
-        </button>
-
-      </form>
-
-      <h2>Login</h2>
-
       <form id="loginForm">
+
+        <h1>Bienvenido</h1>
+
+        <p class="subtitle">
+          Inicia sesión para continuar
+        </p>
 
         <input
           type="text"
@@ -197,95 +149,20 @@ function renderAuthPage() {
           Iniciar sesión
         </button>
 
+        <p class="switch-text">
+          ¿No tienes cuenta?
+
+          <span id="goRegister">
+            Regístrate
+          </span>
+        </p>
+
       </form>
 
     </main>
   `;
 
-  const form = document.getElementById("userForm");
-
   const loginForm = document.getElementById("loginForm");
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const fullname = document.getElementById("fullname").value;
-
-    const email = document.getElementById("email").value;
-
-    const birthyear = document.getElementById("birthyear").value;
-
-    const identification = document.getElementById("identification").value;
-
-    const city = document.getElementById("city").value;
-
-    const password = document.getElementById("password").value;
-
-    const status = document.getElementById("status").value;
-
-    const currentYear = new Date().getFullYear();
-
-    if (
-      !fullname ||
-      !email ||
-      !birthyear ||
-      !identification ||
-      !city ||
-      !password ||
-      !status
-    ) {
-      alert("Todos los campos son obligatorios");
-      return;
-    }
-
-    if (!email.includes("@")) {
-      alert("Correo inválido");
-      return;
-    }
-
-    if (birthyear < 1900 || birthyear > currentYear) {
-      alert("Año inválido");
-      return;
-    }
-
-    const userExists = users.some((user) => {
-      return user.identification === identification;
-    });
-
-    if (userExists) {
-      alert("La identificación ya existe");
-      return;
-    }
-
-    const age = currentYear - birthyear;
-
-    const user = {
-      fullname,
-      email,
-      birthyear,
-      age,
-      identification,
-      city,
-      password,
-      status,
-    };
-
-    if (editIndex === null) {
-      users.push(user);
-    } else {
-      users[editIndex] = user;
-
-      editIndex = null;
-    }
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    form.reset();
-
-    alert("Usuario registrado correctamente");
-  });
 
   loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -311,6 +188,186 @@ function renderAuthPage() {
       alert("Identificación o contraseña incorrecta");
     }
   });
+
+  const goRegister = document.getElementById("goRegister");
+
+  goRegister.addEventListener("click", () => {
+    renderRegisterPage();
+  });
+}
+
+function renderRegisterPage() {
+  document.querySelector("#app").innerHTML = `
+
+    <main class="container">
+
+      <form id="userForm">
+
+        <h1>Crear cuenta</h1>
+
+        <p class="subtitle">
+          Regístrate para comenzar
+        </p>
+
+        <input 
+          type="text" 
+          id="fullname" 
+          placeholder="Nombre completo"
+        />
+
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="Correo electrónico"
+        />
+
+        <input 
+          type="date" 
+          id="birthdate" 
+          placeholder="Año de nacimiento"
+        />
+
+        <input 
+          type="text" 
+          id="identification" 
+          placeholder="Número de identificación"
+        />
+
+        <input 
+          type="text" 
+          id="city" 
+          placeholder="Ciudad"
+        />
+
+        <input 
+          type="password" 
+          id="password"
+          placeholder="Contraseña"
+        />
+
+        <select id="status">
+          <option value="">
+            Seleccione estado
+          </option>
+
+          <option value="Activo">
+            Activo
+          </option>
+
+          <option value="Inactivo">
+            Inactivo
+          </option>
+        </select>
+
+        <button type="submit">
+          Crear cuenta
+        </button>
+
+        <p class="switch-text">
+          ¿Ya tienes cuenta?
+
+          <span id="goLogin">
+            Inicia sesión
+          </span>
+        </p>
+
+      </form>
+
+    </main>
+  `;
+
+  const form = document.getElementById("userForm");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const fullname = document.getElementById("fullname").value;
+
+    const email = document.getElementById("email").value;
+
+    const birthdate = document.getElementById("birthdate").value;
+
+    const identification = document.getElementById("identification").value;
+
+    const city = document.getElementById("city").value;
+
+    const password = document.getElementById("password").value;
+
+    const status = document.getElementById("status").value;
+
+    const currentYear = new Date().getFullYear();
+
+    if (
+      !fullname ||
+      !email ||
+      !birthdate ||
+      !identification ||
+      !city ||
+      !password ||
+      !status
+    ) {
+      alert("Todos los campos son obligatorios");
+
+      return;
+    }
+
+    if (!email.includes("@")) {
+      alert("Correo inválido");
+
+      return;
+    }
+
+    const birthYear = new Date(birthdate).getFullYear();
+
+    if (birthYear < 1900 || birthYear > currentYear) {
+      alert("Fecha inválida");
+
+      return;
+    }
+
+    const userExists = users.some((user, index) => {
+      return user.identification === identification && index !== editIndex;
+    });
+
+    if (userExists) {
+      alert("La identificación ya existe");
+
+      return;
+    }
+
+    const age = currentYear - birthYear;
+
+    const user = {
+      fullname,
+      email,
+      birthdate,
+      age,
+      identification,
+      city,
+      password,
+      status,
+    };
+
+    if (editIndex === null) {
+      users.push(user);
+    } else {
+      users[editIndex] = user;
+
+      editIndex = null;
+    }
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Usuario registrado correctamente");
+
+    renderLoginPage();
+  });
+
+  const goLogin = document.getElementById("goLogin");
+
+  goLogin.addEventListener("click", () => {
+    renderLoginPage();
+  });
 }
 
 const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
@@ -318,5 +375,5 @@ const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
 if (loggedUser) {
   renderDashboard(loggedUser);
 } else {
-  renderAuthPage();
+  renderLoginPage();
 }

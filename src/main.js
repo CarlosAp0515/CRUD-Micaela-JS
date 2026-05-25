@@ -95,7 +95,7 @@ function renderDashboard(user) {
     <main class="container">
 
       <h1>
-        Bienvenido ${user.fullname}
+        Bienvenid@ ${user.fullname}
       </h1>
 
       <button id="logout">
